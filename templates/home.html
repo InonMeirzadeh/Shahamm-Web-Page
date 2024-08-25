@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ company.name }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/לוגו שחם.jpg') }}" alt="{{ company.name }} Logo" id="company-logo">
+    </header>
+
+    <nav>
+        <ul id="nav-menu" role="menubar">
+            <li><a href="#about">אודות</a></li>
+            <li><a href="#services">שירותים</a></li>
+            <li><a href="#projects">פרויקטים</a></li>
+            <li><a href="#image-gallery">גלריה</a></li>
+            <li><a href="#contact">צור קשר</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section id="about">
+            <h2>אודות החברה</h2>
+            <p>{{ company.description }}</p>
+            <p>מייסד: {{ company.founder }}</p>
+            <p>הוקמה: {{ company.founded }}</p>
+            <p>כתובת: <a href="https://www.google.com/maps/search/?api=1&query={{ company.address }}" target="_blank">{{ company.address }}</a></p>
+            <p>טלפון: {{ company.phone }}</p>
+            <p>פקס: {{ company.fax }}</p>
+            <p>אימייל: <a href="mailto:{{ company.email }}">{{ company.email }}</a></p>
+        </section>
+
+        <section id="services">
+            <h2>שירותים</h2>
+            <div class="services-grid">
+                {% for consultant in company.employees.consultants %}
+                    <div class="service-card">
+                        <i class="fas fa-{{ get_icon(consultant) }}"></i>
+                        <h3>{{ consultant }}</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>פרויקטים</h2>
+            <div class="project-categories">
+                {% for category in company.projects %}
+                    <div class="project-category">
+                        <h3>{{ category }}</h3>
+                        <img src="{{ url_for('static', filename='images/' + get_category_image(category)) }}" alt="{{ category }}">
+                    </div>
+                {% endfor %}
+            </div>
+
+            <h3>פרויקטים מפורטים</h3>
+            <div class="detailed-projects">
+                {% for location in company.detailed_projects %}
+                    <div class="location-projects">
+                        <h4>{{ location.location }}</h4>
+                        <div class="project-list">
+                            {% for project in location.projects %}
+                                <div class="project-item">{{ project }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="image-gallery">
+            <h2>גלריית תמונות</h2>
+            <div class="gallery-grid">
+                <img src="{{ url_for('static', filename='images/ramle1.jpg') }}" alt="פרויקט 1">
+                <img src="{{ url_for('static', filename='images/ramle2.jpg') }}" alt="פרויקט 2">
+                <img src="{{ url_for('static', filename='images/ramle3.jpg') }}" alt="פרויקט 3">
+                <img src="{{ url_for('static', filename='images/ramle4.jpg') }}" alt="פרויקט 4">
+                <img src="{{ url_for('static', filename='images/ramle5.jpg') }}" alt="פרויקט 5">
+                <img src="{{ url_for('static', filename='images/ramle6.jpg') }}" alt="פרויקט 6">
+                <img src="{{ url_for('static', filename='images/ramle7.jpg') }}" alt="פרויקט 7">
+                <img src="{{ url_for('static', filename='images/ramle8.jpg') }}" alt="פרויקט 8">
+                <img src="{{ url_for('static', filename='images/ramle9.jpg') }}" alt="פרויקט 9">
+                <img src="{{ url_for('static', filename='images/ramle10.jpg') }}" alt="פרויקט 10">
+                <img src="{{ url_for('static', filename='images/ramle11.jpg') }}" alt="פרויקט 11">
+                <img src="{{ url_for('static', filename='images/beitar1.jpg') }}" alt="פרויקט 12">
+                <img src="{{ url_for('static', filename='images/beitar2.jpg') }}" alt="פרויקט 13">
+                <img src="{{ url_for('static', filename='images/beitar3.jpg') }}" alt="פרויקט 14">
+                <img src="{{ url_for('static', filename='images/beitar4.jpg') }}" alt="פרויקט 15">
+                <img src="{{ url_for('static', filename='images/beitar5.jpg') }}" alt="פרויקט 16">
+                <img src="{{ url_for('static', filename='images/beitar6.jpg') }}" alt="פרויקט 17">
+                <img src="{{ url_for('static', filename='images/beitar7.jpg') }}" alt="פרויקט 18">
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>צור קשר</h2>
+            <form class="contact-form" method="POST">
+                <input type="text" name="name" placeholder="שם מלא" required>
+                <input type="email" name="email" placeholder="כתובת אימייל" required>
+                <input type="tel" name="phone" placeholder="מספר טלפון">
+                <textarea name="message" placeholder="הודעה" required></textarea>
+                <button type="submit">שלח</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 {{ company.name }}. כל הזכויות שמורות.</p>
+    </footer>
+
+    <div id="back-to-top">&#8593;</div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
