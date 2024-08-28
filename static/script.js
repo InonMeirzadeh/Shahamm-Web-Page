@@ -108,4 +108,59 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('אירעה שגיאה בעת שליחת הטופס. אנא נסו שנית.');
         });
     });
+
+    const searchInput = document.getElementById('search-input');
+    const searchButton = document.getElementById('search-button');
+
+    searchButton.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const sections = document.querySelectorAll('section');
+
+        sections.forEach(section => {
+            const text = section.innerText.toLowerCase();
+            if (text.includes(searchTerm)) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+    }
+
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const galleryItems = document.querySelectorAll('.gallery-grid img');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const filter = button.getAttribute('data-filter');
+
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            galleryItems.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    const testimonials = document.querySelectorAll('.testimonial');
+    let currentTestimonial = 0;
+
+    function showNextTestimonial() {
+        testimonials[currentTestimonial].style.display = 'none';
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        testimonials[currentTestimonial].style.display = 'block';
+    }
+
+    setInterval(showNextTestimonial, 5000); // Change testimonial every 5 seconds
 });

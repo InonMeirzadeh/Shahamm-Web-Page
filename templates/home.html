@@ -24,6 +24,11 @@
         </ul>
     </nav>
 
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="חיפוש פרויקטים או שירותים...">
+        <button id="search-button">חיפוש</button>
+    </div>
+
     <main class="container">
         <section id="about">
             <h2>אודות החברה</h2>
@@ -59,6 +64,7 @@
                 {% endfor %}
             </div>
 
+
             <h3>פרויקטים מפורטים</h3>
             <div class="detailed-projects">
                 {% for location in company.detailed_projects %}
@@ -74,11 +80,32 @@
             </div>
         </section>
 
-        <section id="image-gallery">
+        <div id="testimonials" class="section">
+            <h2>לקוחות ממליצים</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <p>"שירות מעולה ותוצאות מרשימות. ממליץ בחום!"</p>
+                    <h4>- יוסי כהן, עיריית רמלה</h4>
+                </div>
+                <div class="testimonial">
+                    <p>"צוות מקצועי ואמין. עבודה נהדרת!"</p>
+                    <h4>- שרה לוי, מועצה מקומית קדומים</h4>
+                </div>
+                <!-- Add more testimonials as needed -->
+            </div>
+        </div>
+
+        <div id="image-gallery" class="section">
             <h2>גלריית תמונות</h2>
+            <div class="gallery-filter">
+                <button class="filter-button active" data-filter="all">הכל</button>
+                <button class="filter-button" data-filter="public">מבני ציבור</button>
+                <button class="filter-button" data-filter="education">מבני חינוך</button>
+                <button class="filter-button" data-filter="residential">מבני מגורים</button>
+            </div>
             <div class="gallery-grid">
-                <img src="{{ url_for('static', filename='images/ramle1.jpg') }}" alt="פרויקט 1">
-                <img src="{{ url_for('static', filename='images/ramle2.jpg') }}" alt="פרויקט 2">
+                <img src="{{ url_for('static', filename='images/ramle1.jpg') }}" alt="פרויקט 1" data-category="public">
+                <img src="{{ url_for('static', filename='images/ramle2.jpg') }}" alt="פרויקט 2" data-category="education">
                 <img src="{{ url_for('static', filename='images/ramle3.jpg') }}" alt="פרויקט 3">
                 <img src="{{ url_for('static', filename='images/ramle4.jpg') }}" alt="פרויקט 4">
                 <img src="{{ url_for('static', filename='images/ramle5.jpg') }}" alt="פרויקט 5">
@@ -96,7 +123,7 @@
                 <img src="{{ url_for('static', filename='images/beitar6.jpg') }}" alt="פרויקט 17">
                 <img src="{{ url_for('static', filename='images/beitar7.jpg') }}" alt="פרויקט 18">
             </div>
-        </section>
+        </div>
 
         <section id="contact">
             <h2>צור קשר</h2>
